@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import maeta.api.domain.skill.entity.Skill;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,9 +27,23 @@ public class Occupation {
     @Column(name = "occupation_type", nullable = false)
     private OccupationType occupationType;                  // 직업 분류 (전사, 궁수, 마법사)
 
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "skill_seq")
+    private List<Skill> skills;                             // 직업 스킬 정보
+
     public Occupation(OccupationName occupationName, OccupationClass occupationClass, OccupationType occupationType) {
         this.occupationName = occupationName;
         this.occupationClass = occupationClass;
         this.occupationType = occupationType;
+        this.skills = new ArrayList<>();
+    }
+
+    // ToDo :: 스킬 정보와 직업 정보의 연관 관계를 설정한다.
+    public void saveSkill(Skill skill) {
+
+    }
+
+    // ToDo :: 스킬 정보와 직업 정보의 연관 관계를 끊는다.
+    public void deleteSkill(Skill skill) {
+
     }
 }
